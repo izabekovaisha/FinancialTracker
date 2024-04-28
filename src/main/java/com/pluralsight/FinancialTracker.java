@@ -71,10 +71,10 @@ public class FinancialTracker {
                 if (parts.length == 5) {
                     String date = parts[0].trim();
                     String time = parts[1].trim();
-                    String type = parts[2].trim();
+                    String description = parts[2].trim();
                     String vendor = parts[3].trim();
-                    double price = Double.parseDouble(parts[4]);
-                    transactions.add(new Transaction()date, time, type, vendor, price);
+                    double amount = Double.parseDouble(parts[4]);
+                    transactions.add(new Transaction(date, time, description, vendor, amount);
                 }
             }
             bufferedReader.close();
