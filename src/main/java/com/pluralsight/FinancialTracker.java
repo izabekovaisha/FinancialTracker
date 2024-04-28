@@ -1,5 +1,8 @@
 package com.pluralsight;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -60,7 +63,27 @@ public class FinancialTracker {
         // For example: 2023-04-29,13:45:00,Amazon,PAYMENT,29.99
         // After reading all the transactions, the file should be closed.
         // If any errors occur, an appropriate error message should be displayed.
-    }
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
+            String line;
+            while ((line = bufferedReader.readLine())!= null) {
+                String[] parts = line.split("\\|");
+                if (parts.length == 5) {
+                    String date = parts[0].trim();
+                    String time = parts[1].trim();
+                    String type = parts[2].trim();
+                    String vendor = parts[3].trim();
+                    double price = Double.parseDouble(parts[4]);
+                    transactions.add(new Transaction()date, time, type, vendor, price);
+                }
+            }
+            bufferedReader.close();
+
+        } catch (Exception e) {
+            System.out.println("Error loading inventory: " + e.getMessage());
+        }
+
+
 
     private static void addDeposit(Scanner scanner) {
         // This method should prompt the user to enter the date, time, vendor, and amount of a deposit.
