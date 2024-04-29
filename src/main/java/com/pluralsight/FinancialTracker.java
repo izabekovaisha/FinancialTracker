@@ -91,6 +91,48 @@ public class FinancialTracker {
         // The amount should be a positive number.
         // After validating the input, a new `Deposit` object should be created with the entered values.
         // The new deposit should be added to the `transactions` ArrayList.
+            // Prompt the user to enter the date
+            System.out.println("Enter deposit date (yyyy-MM-dd): ");
+            String date = scanner.nextLine();
+            LocalDate date = LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_FORMAT));
+
+            // 2. Prompt for Deposit Time
+            System.out.println("Enter deposit time (HH:mm:ss): ");
+            String time = scanner.nextLine();
+
+            // 3. Prompt for Vendor (Optional)
+            System.out.println("Enter deposit vendor (optional): ");
+            String vendor = scanner.nextLine().trim(); // Trim leading/trailing whitespaces
+            // 4. Prompt for Optional Description
+            System.out.println("Enter deposit description (optional): ");
+            String type = scanner.nextLine().trim(); // Trim leading/trailing whitespaces
+
+            // 5. Prompt for Deposit Amount
+            System.out.println("Enter deposit amount: ");
+            double amount;
+            do {
+                try {
+                    amount = Double.parseDouble(scanner.nextLine());
+                    if (amount <= 0) {
+                        System.out.println("Deposit amount must be positive. Please try again: ");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid amount format. Please enter a number: ");
+                    amount = -1.0; // Placeholder value to loop again
+                }
+            } while (amount <= 0); // Repeat until a valid positive amount is entered
+
+            // 6. Create Transaction Object (assuming Transaction takes these arguments)
+            Transaction transaction = new Transaction(date, time, vendor, type, Math.abs(amount));
+
+            // 7. Add Transaction to List
+            transactions.add(transaction);
+
+            // 8. Success Message
+            System.out.println("Deposit added successfully!");
+        }
+
+        }
     }
 
     private static void addPayment(Scanner scanner) {

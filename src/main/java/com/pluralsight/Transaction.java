@@ -4,7 +4,7 @@ public class Transaction {
     // Attributes
     private String date;
     private String time;
-    private String description;
+    private String type;
     private String vendor;
     private double amount;
 
@@ -12,51 +12,39 @@ public class Transaction {
     public Transaction(String date, String time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
-        this.description = description;
+        this.type = description;
         this.vendor = vendor;
         this.amount = amount;
     }
 
-    // Getters and setters
-    public String getDate() {
-        return date;
+    public boolean isCredit() {
+        return amount > 0;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public boolean isDebit() {
+        return amount < 0;
+    }
+        // Getters and setters
+    public String getDate() {
+        return date;
     }
 
     public String getTime() {
         return time;
     }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public String getType() {
+        return type;
     }
 
     public String getVendor() {
         return vendor;
     }
 
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
-    }
-
     public double getAmount() {
         return amount;
     }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+}
 }
 
 
