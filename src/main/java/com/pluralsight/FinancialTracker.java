@@ -1,9 +1,12 @@
 package com.pluralsight;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -66,11 +69,11 @@ public class FinancialTracker {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
             String line;
-            while ((line = bufferedReader.readLine())!= null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 String[] parts = line.split("\\|");
                 if (parts.length == 5) {
-                    String date = parts[0].trim();
-                    String time = parts[1].trim();
+                    LocalDate date = LocalDate.parse(parts[0].trim(), DATE_FORMATTER);
+                    LocalTime time = LocalTime.parse(parts[1].trim(), TIME_FORMATTER);
                     String description = parts[2].trim();
                     String vendor = parts[3].trim();
                     double amount = Double.parseDouble(parts[4]);
@@ -82,7 +85,7 @@ public class FinancialTracker {
         } catch (Exception e) {
             System.out.println("Error loading inventory: " + e.getMessage());
         }
-
+    }
 
 
     private static void addDeposit(Scanner scanner) {
@@ -91,49 +94,11 @@ public class FinancialTracker {
         // The amount should be a positive number.
         // After validating the input, a new `Deposit` object should be created with the entered values.
         // The new deposit should be added to the `transactions` ArrayList.
-            // Prompt the user to enter the date
-            System.out.println("Enter deposit date (yyyy-MM-dd): ");
-            String date = scanner.nextLine();
-            LocalDate date = LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_FORMAT));
+        // Prompt the user to enter the date
 
-            // 2. Prompt for Deposit Time
-            System.out.println("Enter deposit time (HH:mm:ss): ");
-            String time = scanner.nextLine();
 
-            // 3. Prompt for Vendor (Optional)
-            System.out.println("Enter deposit vendor (optional): ");
-            String vendor = scanner.nextLine().trim(); // Trim leading/trailing whitespaces
-            // 4. Prompt for Optional Description
-            System.out.println("Enter deposit description (optional): ");
-            String type = scanner.nextLine().trim(); // Trim leading/trailing whitespaces
-
-            // 5. Prompt for Deposit Amount
-            System.out.println("Enter deposit amount: ");
-            double amount;
-            do {
-                try {
-                    amount = Double.parseDouble(scanner.nextLine());
-                    if (amount <= 0) {
-                        System.out.println("Deposit amount must be positive. Please try again: ");
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid amount format. Please enter a number: ");
-                    amount = -1.0; // Placeholder value to loop again
-                }
-            } while (amount <= 0); // Repeat until a valid positive amount is entered
-
-            // 6. Create Transaction Object (assuming Transaction takes these arguments)
-            Transaction transaction = new Transaction(date, time, vendor, type, Math.abs(amount));
-
-            // 7. Add Transaction to List
-            transactions.add(transaction);
-
-            // 8. Success Message
-            System.out.println("Deposit added successfully!");
-        }
-
-        }
     }
+
 
     private static void addPayment(Scanner scanner) {
         // This method should prompt the user to enter the date, time, vendor, and amount of a payment.
@@ -141,7 +106,58 @@ public class FinancialTracker {
         // The amount should be a positive number.
         // After validating the input, a new `Payment` object should be created with the entered values.
         // The new payment should be added to the `transactions` ArrayList.
+
+        System.out.println("Make Payment (Debit)");
+
+        // Prompt user for date
+
+        System.out.println("Enter the date (format: yyyy-MM-dd): ");
+
+        LocalDate date = LocalDate.parse(scanner.nextLine().trim(), DATE_FORMATTER);
+
+        // Prompt user for time
+
+        System.out.println("Enter the time (format: HH:mm:ss): ");
+
+        LocalTime time = LocalTime.parse(scanner.nextLine().trim(), TIME_FORMATTER);
+
+        // Prompt user for description
+
+        System.out.println("Enter the description: ");
+        String description =  scanner.nextLine().trim();
+
+        // Prompt user for vendor
+
+        System.out.println("Enter the vendor: ");
+
+        String vendor = scanner.nextLine().trim();
+
+        // Prompt user for amount
+
+        System.out.println("Enter the amount: ");
+
+        double amount = Double.parseDouble(scanner.nextLine().trim()) * -1;
+
+        // Validate amount
+
+        if (amount <= 0) {
+
+            System.out.println("Invalid amount. Please enter a positive number.");
+
+            return;
+
+        }
+
+        // Create Transaction object and add to transactions ArrayList
+
+        transactions.add(new Transaction(date, time, description, vendor, amount)); //
+
+        System.out.println("Payment added successfully");
+
+        BufferedWriter bufferedWriter
+
     }
+
 
     private static void ledgerMenu(Scanner scanner) {
         boolean running = true;
