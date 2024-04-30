@@ -214,16 +214,35 @@ public class FinancialTracker {
     private static void displayLedger() {
         // This method should display a table of all transactions in the `transactions` ArrayList.
         // The table should have columns for date, time, vendor, type, and amount.
+        System.out.println(("Date\tTime\tVendor\tType\tAmount"));
+        for (Transaction transaction : transactions) {
+            System.out.println(transaction.getDate() + "\t" + transaction.getTime() + "\t" + transaction.getVendor() + "\t" + transaction.getDescription() + "\t" + "$" + transaction.getAmount());
+        }
     }
 
     private static void displayDeposits() {
         // This method should display a table of all deposits in the `transactions` ArrayList.
         // The table should have columns for date, time, vendor, and amount.
+        System.out.println("All deposits: ");
+
+        System.out.println("Date\tTime\tVendor\tAmount");
+        for (Transaction transaction : transactions) {
+            if (transaction.getDescription().equals("DEPOSIT")) {
+                System.out.println(transaction.getDate() + "\t" + transaction.getTime() + "\t" + transaction.getVendor() + "\t" + "$" + transaction.getAmount());
+            }
+        }
     }
 
     private static void displayPayments() {
         // This method should display a table of all payments in the `transactions` ArrayList.
         // The table should have columns for date, time, vendor, and amount.
+        System.out.println("All payments: ");
+        System.out.println("Date\tTime\tVendor\tAmount");
+        for (Transaction transaction : transactions) {
+            if (transaction.getDescription().equals("PAYMENT")) {
+                System.out.println(transaction.getDate() + "\t" + transaction.getTime() + "\t" + transaction.getVendor() + "\t" + "$" + transaction.getAmount());
+            }
+        }
     }
 
     private static void reportsMenu(Scanner scanner) {
@@ -244,19 +263,23 @@ public class FinancialTracker {
                 case "1":
                     // Generate a report for all transactions within the current month,
                     // including the date, vendor, and amount for each transaction.
+                    break;
                 case "2":
                     // Generate a report for all transactions within the previous month,
                     // including the date, vendor, and amount for each transaction.
+                    break;
                 case "3":
                     // Generate a report for all transactions within the current year,
                     // including the date, vendor, and amount for each transaction.
-
+                    break;
                 case "4":
                     // Generate a report for all transactions within the previous year,
                     // including the date, vendor, and amount for each transaction.
+                    break;
                 case "5":
                     // Prompt the user to enter a vendor name, then generate a report for all transactions
                     // with that vendor, including the date, vendor, and amount for each transaction.
+                    break;
                 case "0":
                     running = false;
                 default:
