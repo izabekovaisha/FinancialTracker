@@ -1,9 +1,6 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -124,7 +121,7 @@ public class FinancialTracker {
         // Prompt user for description
 
         System.out.println("Enter the description: ");
-        String description =  scanner.nextLine().trim();
+        String description = scanner.nextLine().trim();
 
         // Prompt user for vendor
 
@@ -154,8 +151,14 @@ public class FinancialTracker {
 
         System.out.println("Payment added successfully");
 
-        BufferedWriter bufferedWriter
-
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true)) {
+                writer.write(Transaction.getDate()+"|"+Transaction.getTime()+"|"+Transaction.getType()+"|"+Transaction.getVendor()+"|"+Transaction.getAmount());
+                writer.newLine();
+                System.out.println("Payment added successfully to transaction.csv");
+        } catch (IOException e) {
+                System.err.println(("Error writing to transaction.csv: " + e.getMessage());
+        }
     }
 
 
