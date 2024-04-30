@@ -92,10 +92,24 @@ public class FinancialTracker {
         // After validating the input, a new `Deposit` object should be created with the entered values.
         // The new deposit should be added to the `transactions` ArrayList.
         // Prompt the user to enter the date
-
-
+        System.out.println("Add Deposit");
+        System.out.println("Enter the date (format: yyyy-MM-dd): ");
+        LocalDate date = LocalDate.parse(scanner.nextLine().trim(), DATE_FORMATTER);
+        System.out.println("Enter the time (format: HH:mm:ss): ");
+        LocalTime time = LocalTime.parse(scanner.nextLine().trim(), TIME_FORMATTER);
+        System.out.println("Enter the description: ");
+        String description = scanner.nextLine().trim();
+        System.out.println("Enter the vendor: ");
+        String vendor = scanner.nextLine().trim();
+        System.out.println("Enter the amount: ");
+        double amount = Double.parseDouble(scanner.nextLine().trim());
+        if (amount <= 0) {
+            System.out.println("Invalid amount. Please enter a positive number.");
+            return;
+        }
+        transactions.add(new Transaction(date, time, description, vendor, amount));
+        System.out.println("Deposit added successfully");
     }
-
 
     private static void addPayment(Scanner scanner) {
         // This method should prompt the user to enter the date, time, vendor, and amount of a payment.
@@ -147,19 +161,18 @@ public class FinancialTracker {
 
         // Create Transaction object and add to transactions ArrayList
 
-        transactions.add(new Transaction(date, time, description, vendor, amount)); //
+        transactions.add(new Transaction(date, time, description, vendor, amount));
 
         System.out.println("Payment added successfully");
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true)) {
-                writer.write(Transaction.getDate()+"|"+Transaction.getTime()+"|"+Transaction.getType()+"|"+Transaction.getVendor()+"|"+Transaction.getAmount());
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
+                writer.write(date + "|" + time + "|" + description + "|" + vendor + "|" + amount);
                 writer.newLine();
                 System.out.println("Payment added successfully to transaction.csv");
         } catch (IOException e) {
-                System.err.println(("Error writing to transaction.csv: " + e.getMessage());
-        }
-    
+                System.err.println(("Error writing to transaction.csv: " + e.getMessage()));
+            }
     }
 
 
@@ -269,4 +282,5 @@ public class FinancialTracker {
         // Transactions with a matching vendor name are printed to the console.
         // If no transactions match the specified vendor name, the method prints a message indicating that there are no results.
     }
+}
 }
