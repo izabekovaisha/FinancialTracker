@@ -296,6 +296,14 @@ public class FinancialTracker {
         // The method loops through the transactions list and checks each transaction's date against the date range.
         // Transactions that fall within the date range are printed to the console.
         // If no transactions fall within the date range, the method prints a message indicating that there are no results.
+        System.out.println("Transactions between " + startDate + " and " + endDate + ":");
+        boolean found = false;
+        for (Transaction transaction : transactions) {
+            LocalDate transactionDate = transaction.getDate();
+            if (transactionDate.compareTo(startDate) >= 0 && transactionDate.compareTo(endDate) <=0) {
+                System.out.println(transaction);
+            }
+        }
     }
 
     private static void filterTransactionsByVendor(String vendor) {
@@ -304,5 +312,8 @@ public class FinancialTracker {
         // The method loops through the transactions list and checks each transaction's vendor name against the specified vendor name.
         // Transactions with a matching vendor name are printed to the console.
         // If no transactions match the specified vendor name, the method prints a message indicating that there are no results.
+        for (Transaction transaction : transactions) {
+            
+        }
     }
 }
