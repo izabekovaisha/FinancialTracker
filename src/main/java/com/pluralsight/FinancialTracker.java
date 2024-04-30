@@ -159,6 +159,7 @@ public class FinancialTracker {
         } catch (IOException e) {
                 System.err.println(("Error writing to transaction.csv: " + e.getMessage());
         }
+    
     }
 
 
