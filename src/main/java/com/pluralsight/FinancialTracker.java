@@ -147,17 +147,19 @@ public class FinancialTracker {
 
         System.out.println("Enter the amount: ");
 
-        double amount = Double.parseDouble(scanner.nextLine().trim()) * -1;
+        double amount = Double.parseDouble(scanner.nextLine().trim());
 
         // Validate amount
 
-        if (amount <= 0) {
+        if (amount >= 0) {
 
             System.out.println("Invalid amount. Please enter a positive number.");
 
             return;
 
         }
+
+        amount *= -1;
 
         // Create Transaction object and add to transactions ArrayList
 
@@ -167,12 +169,12 @@ public class FinancialTracker {
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
-                writer.write(date + "|" + time + "|" + description + "|" + vendor + "|" + amount);
-                writer.newLine();
-                System.out.println("Payment added successfully to transaction.csv");
+            writer.write(date + "|" + time + "|" + description + "|" + vendor + "|" + amount);
+            writer.newLine();
+            System.out.println("Payment added successfully to transaction.csv");
         } catch (IOException e) {
-                System.err.println(("Error writing to transaction.csv: " + e.getMessage()));
-            }
+            System.err.println(("Error writing to transaction.csv: " + e.getMessage()));
+        }
     }
 
 
@@ -227,7 +229,7 @@ public class FinancialTracker {
 
         System.out.println("Date\tTime\tVendor\tAmount");
         for (Transaction transaction : transactions) {
-            if (transaction.getDescription().equals("DEPOSIT")) {
+            if (transaction.getAmount() > 0) {
                 System.out.println(transaction.getDate() + "\t" + transaction.getTime() + "\t" + transaction.getVendor() + "\t" + "$" + transaction.getAmount());
             }
         }
@@ -239,7 +241,7 @@ public class FinancialTracker {
         System.out.println("All payments: ");
         System.out.println("Date\tTime\tVendor\tAmount");
         for (Transaction transaction : transactions) {
-            if (transaction.getDescription().equals("PAYMENT")) {
+            if (transaction.getAmount() < 0) {
                 System.out.println(transaction.getDate() + "\t" + transaction.getTime() + "\t" + transaction.getVendor() + "\t" + "$" + transaction.getAmount());
             }
         }
@@ -263,10 +265,12 @@ public class FinancialTracker {
                 case "1":
                     // Generate a report for all transactions within the current month,
                     // including the date, vendor, and amount for each transaction.
+                    filterTransactionsByDate(LocalDate.now().withDayOfMonth(1),LocalDate.now());
                     break;
                 case "2":
                     // Generate a report for all transactions within the previous month,
                     // including the date, vendor, and amount for each transaction.
+                    filterTransactionsByDate(LocalDate.now())
                     break;
                 case "3":
                     // Generate a report for all transactions within the current year,
@@ -300,7 +304,7 @@ public class FinancialTracker {
         boolean found = false;
         for (Transaction transaction : transactions) {
             LocalDate transactionDate = transaction.getDate();
-            if (transactionDate.compareTo(startDate) >= 0 && transactionDate.compareTo(endDate) <=0) {
+            if (transactionDate.compareTo(startDate) >= 0 && transactionDate.compareTo(endDate) <= 0) {
                 System.out.println(transaction);
             }
         }
@@ -313,7 +317,9 @@ public class FinancialTracker {
         // Transactions with a matching vendor name are printed to the console.
         // If no transactions match the specified vendor name, the method prints a message indicating that there are no results.
         for (Transaction transaction : transactions) {
-            
+            if (transaction.getVendor().equals(vendor)) {
+                System.out.println(transaction);
+            }
         }
     }
 }
