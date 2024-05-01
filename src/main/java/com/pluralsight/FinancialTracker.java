@@ -110,6 +110,14 @@ public class FinancialTracker {
         }
         transactions.add(new Transaction(date, time, description, vendor, amount));
         System.out.println("Deposit added successfully");
+        // Write deposit details to file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
+            writer.write(date + "|" + time + "|" + description + "|" + vendor + "|" + amount);
+            writer.newLine();
+            System.out.println("Deposit added successfully to transaction.csv");
+        } catch (IOException e) {
+            System.err.println(("Error writing to transaction.csv: " + e.getMessage()));
+        }
     }
 
     private static void addPayment(Scanner scanner) {
@@ -266,7 +274,7 @@ public class FinancialTracker {
                 case "1":
                     // Generate a report for all transactions within the current month,
                     // including the date, vendor, and amount for each transaction.
-                    filterTransactionsByDate(LocalDate.now().withDayOfMonth(1),LocalDate.now());
+                    filterTransactionsByDate(LocalDate.now().withDayOfMonth(1), LocalDate.now());
                     break;
                 case "2":
                     // Generate a report for all transactions within the previous month,
@@ -333,3 +341,4 @@ public class FinancialTracker {
         }
     }
 }
+
