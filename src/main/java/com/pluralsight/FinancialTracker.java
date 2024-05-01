@@ -2,16 +2,14 @@ package com.pluralsight;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FinancialTracker {
 
-    private static ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+    private static final ArrayList<Transaction> transactions = new ArrayList<>();
     private static final String FILE_NAME = "transactions.csv";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String TIME_FORMAT = "HH:mm:ss";
@@ -319,12 +317,12 @@ public class FinancialTracker {
         // Transactions that fall within the date range are printed to the console.
         // If no transactions fall within the date range, the method prints a message indicating that there are no results.
         System.out.println("Transactions between " + startDate + " and " + endDate + ":");
-        boolean found = false;
         for (Transaction transaction : transactions) {
             LocalDate transactionDate = transaction.getDate();
-            if (transactionDate.compareTo(startDate) >= 0 && transactionDate.compareTo(endDate) <= 0) {
-                System.out.println(transaction);
-            }
+            if (transactionDate.compareTo(startDate) >= 0)
+                if (transactionDate.compareTo(endDate) <= 0) {
+                    System.out.println(transaction);
+                }
         }
     }
 
