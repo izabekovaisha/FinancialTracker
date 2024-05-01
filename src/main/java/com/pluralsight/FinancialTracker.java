@@ -224,6 +224,8 @@ public class FinancialTracker {
     private static void displayLedger() {
         // This method should display a table of all transactions in the `transactions` ArrayList.
         // The table should have columns for date, time, vendor, type, and amount.
+        System.out.println("Ledger: ");
+
         System.out.println(("Date\tTime\tVendor\tType\tAmount"));
         for (Transaction transaction : transactions) {
             System.out.println(transaction.getDate() + "\t" + transaction.getTime() + "\t" + transaction.getVendor() + "\t" + transaction.getDescription() + "\t" + "$" + transaction.getAmount());
@@ -265,6 +267,7 @@ public class FinancialTracker {
             System.out.println("3) Year To Date");
             System.out.println("4) Previous Year");
             System.out.println("5) Search by Vendor");
+            System.out.println("6) Custom Search");
             System.out.println("0) Back");
 
             String input = scanner.nextLine().trim();
@@ -280,6 +283,7 @@ public class FinancialTracker {
                     // including the date, vendor, and amount for each transaction.
                     LocalDate firstDayOfPreviousMonth = LocalDate.now().minusMonths(1).withDayOfMonth(1);
                     LocalDate lastDayOfPreviousMonth = LocalDate.now().minusMonths(1).withDayOfMonth(LocalDate.now().minusMonths(1).lengthOfMonth());
+
                     filterTransactionsByDate(firstDayOfPreviousMonth, lastDayOfPreviousMonth);
                     break;
                 case "3":
@@ -292,6 +296,7 @@ public class FinancialTracker {
                     // including the date, vendor, and amount for each transaction.
                     LocalDate firstDayOfPreviousYear = LocalDate.now().minusYears(1).withDayOfYear(1);
                     LocalDate lastDayOfPreviousYear = LocalDate.now().minusYears(1).withDayOfYear(LocalDate.now().minusYears(1).lengthOfYear());
+
                     filterTransactionsByDate(firstDayOfPreviousYear, lastDayOfPreviousYear);
                     break;
                 case "5":
@@ -299,8 +304,14 @@ public class FinancialTracker {
                     // with that vendor, including the date, vendor, and amount for each transaction.
                     System.out.println("Enter the vendor: ");
                     String vendor = scanner.nextLine().trim();
+
                     filterTransactionsByVendor(vendor);
                     break;
+                case "6":
+                    // Custom search
+                    System.out.println("Custom Search: ");
+                    System.out.println("Enter yyyy-MM-dd): ");
+                    String
                 case "0":
                     running = false;
                 default:
