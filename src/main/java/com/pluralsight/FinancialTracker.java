@@ -20,7 +20,7 @@ public class FinancialTracker {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
 
-    // main method to execute the Financialtracker program
+    // main method to execute the FinancialTracker program
     public static void main(String[] args) {
         loadTransactions(FILE_NAME);
         Scanner scanner = new Scanner(System.in);
@@ -265,8 +265,27 @@ public class FinancialTracker {
 
                 case "6":
                     System.out.println("Custom Search: ");
-                    System.out.println("Enter yyyy-MM-dd): ");
-                    String
+                    System.out.println("Enter start date (yyyy-MM-dd): ");
+                    LocalDate startDate = scanner.nextLine().trim();
+
+                    System.out.println("Enter end date(format: yyyy-MM-dd): ");
+                    LocalDate endDate = scanner.nextLine().trim();
+
+                    System.out.println("Enter description: ");
+                    String customDescription = scanner.nextLine().trim();
+
+                    System.out.println("Enter vendor: ");
+                    String customVendor = scanner.nextLine().trim();
+
+                    System.out.println("Enter amount: ");
+                    String amountInput = scanner.nextLine().trim();
+                    String customAmount;
+                    if (!amountInput.isEmpty()) {
+                        amountInput = Double.parseDouble(customAmount);
+                    }
+
+                    filterTransactionsByDate(startDate, endDate, customDescription, customVendor, customAmount);
+                    break;
 
                 case "0":
                     running = false;

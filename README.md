@@ -1,21 +1,21 @@
-# Project Title
+# Financial Tracker Application
 
-## Description of the Project
+## Financial Tracker is a Java application designed to help users manage their finances by tracking deposits, payments, and generating reports.
 
-Briefly describe what this Java console application does. Mention its purpose and who the intended users are. Explain the main functionality and what problems it aims to solve.
-
-![Class Diagram](path/to/your/class_diagram.png)
 
 ## User Stories
 
-List the user stories that guided the development of your application. Format these stories as: "As a [type of user], I want [some goal] so that [some reason]."
+List of user stories that guided the development of FinancialTracker application:
 
-- As a developer, I need to create a Transaction class to represent transaction data, so I can easily manage transaction information
-- As a developer, I need to implement functionality to load transactions from a file, so the application can populate its transaction records
-- As a developer, I need to add a method for deposit to enable users to record incoming funds
-- As a developer, I need to add a method for payment to allow users to record outgoing expenses
-- 
-- 
+- As a user, I want to define my transactions with basic details so that I can track my financial activities effectively
+- As a user, I want to load transactions from a file so that I can import my existing financial data into the application
+- As a user, I want to be prompted to enter the basic details of a deposit so that I can record incoming funds
+- As a user, I want to be prompted to enter the basic details of a payment so that I can accurately record outgoing expenses
+- As a user, I want to navigate through a ledger menu to view different options for displaying financial data so that I can easily access the information I need
+- As a user, I want to display all deposits in the ledger so that I can see a detailed breakdown of my incoming funds
+- As a user, I want to display all payments in the ledger so that I can see a detailed breakdown of my outgoing expenses
+- As a user, I want to navigate through a reports menu to view different options for generating financial reports so that I can analyze my financial data over time
+- As a user, I want to filter transactions by date or vendor so that I can narrow down transaction records
 
 
 ## Setup
@@ -62,15 +62,8 @@ List resources such as tutorials, articles, or documentation that helped you dur
 - [Java Programming Tutorial](https://www.example.com)
 - [Effective Java](https://www.example.com)
 
-## Team Members
-
-- **Name 1** - Specific contributions or roles.
-- **Name 2** - Specific contributions or roles.
 
 ## Thanks
 
-Express gratitude towards those who provided help, guidance, or resources:
-
-- Thank you to [Mentor's Name] for continuous support and guidance.
-- A special thanks to all teammates for their dedication and teamwork.
+- Thank you to instructor Raymond for continuous support and guidance.
 
