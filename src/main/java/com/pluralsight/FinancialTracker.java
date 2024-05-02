@@ -213,7 +213,7 @@ public class FinancialTracker {
     // Display all deposits in the ledger
     private static void displayDeposits() {
         System.out.println("All deposits: ");
-        System.out.println("%-15s %-15s %-30s %-25s %-15s\\n\", \"Date\", \"Time\", \"Description\", \"Vendor\", \"Amount\"");
+        System.out.printf("%-15s %-15s %-30s %-25s %-15s\n", "Date", "Time", "Description", "Vendor", "Amount");
         for (Transaction transaction : transactions) {
             if (transaction.getAmount() > 0) {
                 System.out.printf("%-15s %-15s %-30s %-25s $%-15.2f%n", transaction.getDate(), transaction.getTime(), transaction.getDescription(), transaction.getVendor(), transaction.getAmount());
@@ -224,7 +224,7 @@ public class FinancialTracker {
     // Display all payments in the ledger
     private static void displayPayments() {
         System.out.println("All payments: ");
-        System.out.println("\"%-15s %-15s %-30s %-25s %-15s\\\\n\\\", \\\"Date\\\", \\\"Time\\\", \\\"Description\\\", \\\"Vendor\\\", \\\"Amount\\\"\"");
+        System.out.printf("%-15s %-15s %-30s %-25s %-15s\n", "Date", "Time", "Description", "Vendor", "Amount");
         for (Transaction transaction : transactions) {
             if (transaction.getAmount() < 0) {
                 System.out.printf("%-15s %-15s %-30s %-25s $%-15.2f%n", transaction.getDate(), transaction.getTime(), transaction.getDescription(), transaction.getVendor(), transaction.getAmount());
@@ -343,7 +343,6 @@ public class FinancialTracker {
             }
         }
 
-        // Filter transactions based on provided search criteria
         filterTransactionsByDate(startDate, endDate);
 
     }
