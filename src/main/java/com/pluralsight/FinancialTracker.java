@@ -4,6 +4,7 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -63,8 +64,10 @@ public class FinancialTracker {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
             String line;
+
             while ((line = bufferedReader.readLine()) != null) {
                 String[] parts = line.split("\\|");
+
                 if (parts.length == 5) {
                     LocalDate date = LocalDate.parse(parts[0].trim(), DATE_FORMATTER);
                     LocalTime time = LocalTime.parse(parts[1].trim(), TIME_FORMATTER);
@@ -84,16 +87,22 @@ public class FinancialTracker {
     // Add a deposit to the list of transactions
     private static void addDeposit(Scanner scanner) {
         System.out.println("Add Deposit");
+
         System.out.println("Enter the date (format: yyyy-MM-dd): ");
         LocalDate date = LocalDate.parse(scanner.nextLine().trim(), DATE_FORMATTER);
+
         System.out.println("Enter the time (format: HH:mm:ss): ");
         LocalTime time = LocalTime.parse(scanner.nextLine().trim(), TIME_FORMATTER);
+
         System.out.println("Enter the description: ");
         String description = scanner.nextLine().trim();
+
         System.out.println("Enter the vendor: ");
         String vendor = scanner.nextLine().trim();
+
         System.out.println("Enter the amount: ");
         double amount = Double.parseDouble(scanner.nextLine().trim());
+
         if (amount <= 0) {
             System.out.println("Invalid amount. Please enter a positive number.");
             return;
@@ -106,6 +115,7 @@ public class FinancialTracker {
             writer.write(date + "|" + time + "|" + description + "|" + vendor + "|" + amount);
             writer.newLine();
             System.out.println("Deposit added successfully to transaction.csv");
+
         } catch (IOException e) {
             System.err.println(("Error writing to transaction.csv: " + e.getMessage()));
         }
@@ -145,6 +155,7 @@ public class FinancialTracker {
             writer.write(date + "|" + time + "|" + description + "|" + vendor + "|" + amount);
             writer.newLine();
             System.out.println("Payment added successfully to transaction.csv");
+
         } catch (IOException e) {
             System.err.println(("Error writing to transaction.csv: " + e.getMessage()));
         }
@@ -153,6 +164,7 @@ public class FinancialTracker {
     // Display the ledger menu and handle user options
     private static void ledgerMenu(Scanner scanner) {
         boolean running = true;
+
         while (running) {
             System.out.println("Ledger");
             System.out.println("Choose an option:");
@@ -185,6 +197,7 @@ public class FinancialTracker {
             }
         }
     }
+
 
     // Display all transactions in the ledger
     private static void displayLedger() {
@@ -244,49 +257,24 @@ public class FinancialTracker {
 
                     filterTransactionsByDate(firstDayOfPreviousMonth, lastDayOfPreviousMonth);
                     break;
-
                 case "3":
                     filterTransactionsByDate(LocalDate.now().withDayOfYear(1), LocalDate.now());
                     break;
-
                 case "4":
                     LocalDate firstDayOfPreviousYear = LocalDate.now().minusYears(1).withDayOfYear(1);
                     LocalDate lastDayOfPreviousYear = LocalDate.now().minusYears(1).withDayOfYear(LocalDate.now().minusYears(1).lengthOfYear());
 
                     filterTransactionsByDate(firstDayOfPreviousYear, lastDayOfPreviousYear);
                     break;
-
                 case "5":
                     System.out.println("Enter the vendor: ");
                     String vendor = scanner.nextLine().trim();
 
                     filterTransactionsByVendor(vendor);
                     break;
-
                 case "6":
-                    System.out.println("Custom Search: ");
-                    System.out.println("Enter start date (yyyy-MM-dd): ");
-                    LocalDate startDate = scanner.nextLine().trim();
-
-                    System.out.println("Enter end date(format: yyyy-MM-dd): ");
-                    LocalDate endDate = scanner.nextLine().trim();
-
-                    System.out.println("Enter description: ");
-                    String customDescription = scanner.nextLine().trim();
-
-                    System.out.println("Enter vendor: ");
-                    String customVendor = scanner.nextLine().trim();
-
-                    System.out.println("Enter amount: ");
-                    String amountInput = scanner.nextLine().trim();
-                    String customAmount;
-                    if (!amountInput.isEmpty()) {
-                        amountInput = Double.parseDouble(customAmount);
-                    }
-
-                    filterTransactionsByDate(startDate, endDate, customDescription, customVendor, customAmount);
+                    customSearch(scanner);
                     break;
-
                 case "0":
                     running = false;
                 default:
@@ -294,6 +282,70 @@ public class FinancialTracker {
                     break;
             }
         }
+    }
+
+    // Method for performing custom search based on user-provided criteria
+    private static void customSearch(Scanner scanner) {
+        System.out.println("Custom Search: ");
+        System.out.println("Enter start date (format: yyyy-MM-dd): ");
+        LocalDate startDate = null;
+        String startDateInput = scanner.nextLine().trim();
+
+        if (!startDateInput.isEmpty()) {
+
+            try {
+                startDate = LocalDate.parse(startDateInput, DATE_FORMATTER);
+
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Using current date instead.");
+                startDate = LocalDate.now();
+            }
+        }
+
+        System.out.println("Enter end date (format: yyyy-MM-dd): ");
+        LocalDate endDate = null;
+        String endDateInput = scanner.nextLine().trim();
+
+        if (!endDateInput.isEmpty()) {
+
+            try {
+                endDate = LocalDate.parse(endDateInput, DATE_FORMATTER);
+
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Using current date instead.");
+                endDate = LocalDate.now();
+
+            }
+
+        }
+
+        System.out.println("Enter description: ");
+        String description = scanner.nextLine().trim();
+
+        System.out.println("Enter vendor: ");
+        String vendor = scanner.nextLine().trim();
+
+        double amount = 0.0;
+        System.out.println("Enter amount: ");
+        String amountInput = scanner.nextLine().trim();
+
+        if (!amountInput.isEmpty()) {
+
+            try {
+                amount = Double.parseDouble(amountInput);
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Invalid amount format. Using default value instead.");
+                amount = 0.0;
+
+            }
+
+        }
+
+        // Filter transactions based on provided search criteria
+        filterTransactionsByDate(startDate, endDate);
+
     }
 
     // Filter transactions by date and print the report
