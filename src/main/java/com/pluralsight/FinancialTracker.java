@@ -114,6 +114,7 @@ public class FinancialTracker {
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
             writer.write(date + "|" + time + "|" + description + "|" + vendor + "|" + amount);
             writer.newLine();
+            writer.close();
             System.out.println("Deposit added successfully to transaction.csv");
 
         } catch (IOException e) {
@@ -154,6 +155,7 @@ public class FinancialTracker {
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
             writer.write(date + "|" + time + "|" + description + "|" + vendor + "|" + amount);
             writer.newLine();
+            writer.close();
             System.out.println("Payment added successfully to transaction.csv");
 
         } catch (IOException e) {
