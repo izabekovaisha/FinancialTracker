@@ -338,9 +338,7 @@ public class FinancialTracker {
 
                 System.out.println("Invalid amount format. Using default value instead.");
                 amount = 0.0;
-
             }
-
         }
 
         // Filter transactions based on provided search criteria
