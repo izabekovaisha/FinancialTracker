@@ -18,10 +18,6 @@ List of user stories that guided the development of FinancialTracker application
 - As a user, I want to filter transactions by date or vendor so that I can narrow down transaction records
 
 
-## Setup
-
-Instructions on how to set up and run the project using **IntelliJ IDE**A.
-
 ### Prerequisites
 
 - **IntelliJ IDEA**: Ensure you have IntelliJ IDEA installed, which you can download from [here](https://www.jetbrains.com/idea/download/).
@@ -39,6 +35,7 @@ Follow these steps to get your application running within IntelliJ IDEA:
 
 ## Technologies Used
 
+- JDK 17.0.10
 - [IntelliJ IDEA Community Edition 2024.1](https://www.bing.com/ck/a?!&&p=e0b1a0a46e9c6b8aJmltdHM9MTcxNDUyMTYwMCZpZ3VpZD0wZWEzYzk2MC01NjI2LTZmNjEtM2U0Ni1kZDI2NTc3NDZlODgmaW5zaWQ9NTIyMw&ptn=3&ver=2&hsh=3&fclid=0ea3c960-5626-6f61-3e46-dd2657746e88&psq=intellij+idea&u=a1aHR0cHM6Ly93d3cuamV0YnJhaW5zLmNvbS9pZGVhLw&ntb=1)
 - [GitHub](https://github.com/izabekovaisha/FinancialTracker)
 - [Git Bash](https://gitforwindows.org)

@@ -141,7 +141,7 @@ public class FinancialTracker {
         System.out.println("Enter the amount: ");
         double amount = Double.parseDouble(scanner.nextLine().trim());
 
-        if (amount >= 0) {
+        if (amount <= 0) {
             System.out.println("Invalid amount. Please enter a positive number.");
             return;
         }
@@ -170,7 +170,7 @@ public class FinancialTracker {
         while (running) {
             System.out.println("Ledger");
             System.out.println("Choose an option:");
-            System.out.println("A) A`ll");
+            System.out.println("A) All");
             System.out.println("D) Deposits");
             System.out.println("P) Payments");
             System.out.println("R) Reports");
@@ -204,19 +204,19 @@ public class FinancialTracker {
     // Display all transactions in the ledger
     private static void displayLedger() {
         System.out.println("Ledger: ");
-        System.out.println(("Date\tTime\tVendor\tType\tAmount"));
+        System.out.printf("%-15s %-15s %-30s %-25s %-15s\n", "Date", "Time", "Description", "Vendor", "Amount");
         for (Transaction transaction : transactions) {
-            System.out.println(transaction.getDate() + "\t" + transaction.getTime() + "\t" + transaction.getVendor() + "\t" + transaction.getDescription() + "\t" + "$" + transaction.getAmount());
+            System.out.printf("%-15s %-15s %-30s %-25s $%-15.2f%n", transaction.getDate(), transaction.getTime(), transaction.getDescription(), transaction.getVendor(), transaction.getAmount());
         }
     }
 
     // Display all deposits in the ledger
     private static void displayDeposits() {
         System.out.println("All deposits: ");
-        System.out.println("Date\tTime\tVendor\tAmount");
+        System.out.println("%-15s %-15s %-30s %-25s %-15s\\n\", \"Date\", \"Time\", \"Description\", \"Vendor\", \"Amount\"");
         for (Transaction transaction : transactions) {
             if (transaction.getAmount() > 0) {
-                System.out.println(transaction.getDate() + "\t" + transaction.getTime() + "\t" + transaction.getVendor() + "\t" + "$" + transaction.getAmount());
+                System.out.printf("%-15s %-15s %-30s %-25s $%-15.2f%n", transaction.getDate(), transaction.getTime(), transaction.getDescription(), transaction.getVendor(), transaction.getAmount());
             }
         }
     }
@@ -224,10 +224,10 @@ public class FinancialTracker {
     // Display all payments in the ledger
     private static void displayPayments() {
         System.out.println("All payments: ");
-        System.out.println("Date\tTime\tVendor\tAmount");
+        System.out.println("\"%-15s %-15s %-30s %-25s %-15s\\\\n\\\", \\\"Date\\\", \\\"Time\\\", \\\"Description\\\", \\\"Vendor\\\", \\\"Amount\\\"\"");
         for (Transaction transaction : transactions) {
             if (transaction.getAmount() < 0) {
-                System.out.println(transaction.getDate() + "\t" + transaction.getTime() + "\t" + transaction.getVendor() + "\t" + "$" + transaction.getAmount());
+                System.out.printf("%-15s %-15s %-30s %-25s $%-15.2f%n", transaction.getDate(), transaction.getTime(), transaction.getDescription(), transaction.getVendor(), transaction.getAmount());
             }
         }
     }
