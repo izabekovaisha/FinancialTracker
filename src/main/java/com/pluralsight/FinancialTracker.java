@@ -153,7 +153,7 @@ public class FinancialTracker {
 
         try { // Write deposit details to file
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
-            writer.write(String.format("%s|%s|%s|%s|%.2f", date, time, description, vendor, amount));
+            writer.write(date + "|" + time + "|" + description + "|" + vendor + "|" + amount);
             writer.newLine();
             writer.close();
             System.out.println("Payment added successfully to transaction.csv");
