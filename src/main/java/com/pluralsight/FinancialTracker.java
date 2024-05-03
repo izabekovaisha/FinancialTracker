@@ -21,7 +21,7 @@ public class FinancialTracker {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
 
-    // main method to execute the FinancialTracker program
+    // Main method to execute the FinancialTracker program
     public static void main(String[] args) {
         loadTransactions(FILE_NAME);
         Scanner scanner = new Scanner(System.in);
@@ -354,8 +354,7 @@ public class FinancialTracker {
         System.out.println("Transactions between " + startDate + " and " + endDate + ":");
         for (Transaction transaction : transactions) {
             LocalDate transactionDate = transaction.getDate();
-            if (transactionDate.compareTo(startDate) >= 0)
-                if (transactionDate.compareTo(endDate) <= 0) {
+            if (transactionDate.compareTo(startDate) >= 0 && transactionDate.compareTo(endDate) <= 0) {
                     System.out.println(transaction);
                 }
         }

@@ -4,15 +4,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Transaction {
-    // Attributes
+    // Attributes that represent a financial transaction with date, time, description, vendor, and amount
     private LocalDate date;
     private LocalTime time;
     private String description;
     private String vendor;
     private double amount;
 
-    // Constructor with all attributes
-
+    // Constructor to initialize objects
     public Transaction(LocalDate date, LocalTime time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
@@ -21,7 +20,7 @@ public class Transaction {
         this.amount = amount;
     }
 
-
+    // Getters and setters to access and modify the private fields of a class
     public LocalDate getDate() {
         return date;
     }
