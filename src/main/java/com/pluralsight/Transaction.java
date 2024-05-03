@@ -68,7 +68,7 @@ public class Transaction {
                 ", time=" + time +
                 ", description='" + description + '\'' +
                 ", vendor='" + vendor + '\'' +
-                ", amount=" + amount +
+                ", amount=" + amount + String.format("%.2f", amount) +
                 '}';
     }
 }
