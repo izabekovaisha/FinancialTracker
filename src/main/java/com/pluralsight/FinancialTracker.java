@@ -153,7 +153,7 @@ public class FinancialTracker {
 
         try { // Write deposit details to file
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
-            writer.write(date + "|" + time + "|" + description + "|" + vendor + "|" + amount);
+            writer.write(String.format("%s|%s|%s|%s|%.2f", date, time, description, vendor, amount));
             writer.newLine();
             writer.close();
             System.out.println("Payment added successfully to transaction.csv");
@@ -217,7 +217,6 @@ public class FinancialTracker {
         System.out.printf("%-15s %-15s %-30s %-25s %-15s\n", "Date", "Time", "Description", "Vendor", "Amount");
         for (Transaction transaction : transactions) {
             if (transaction.getAmount() > 0) {
-                String formattedAmount = String.format("%.2f", transaction.getAmount());
                 System.out.printf("%-15s %-15s %-30s %-25s $%-15.2f%n", transaction.getDate(), transaction.getTime(), transaction.getDescription(), transaction.getVendor(), transaction.getAmount());
             }
         }
